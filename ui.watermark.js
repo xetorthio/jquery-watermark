@@ -12,12 +12,13 @@ $.widget("ui.watermark", {
     var form = this.element;
 
     this.elements = $("input:text, input:password, textarea", form);
-    if(this.getData("ignoreDefaultValue")) {
-      this.elements.each(function() {
-        this.ignoreDefaultValue = true;
-        this.defaultValue = this.value;
-      });
-    }
+
+    var ignoreDefaultValue = this.getData("ignoreDefaultValue");
+
+    this.elements.each(function() {
+      this.ignoreDefaultValue = ignoreDefaultValue;
+      this.defaultValue = this.value;
+    });
 
     this.elements.focus(this.handlerOff);
     this.elements.blur(this.handlerOn);
@@ -49,7 +50,7 @@ $.widget("ui.watermark", {
 
   handlerOff: function() {
     if (this.type == 'text' || this.type == 'textarea') {
-      if ((this.value == this.title && this.title && this.title != '')||(this.ignoreDefaultValue && this.value == this.defaultValue)) {
+      if ((this.value == this.title && this.title && this.title != '')) {
         this.value = this.defaultValue?this.defaultValue:'';
         $(this).removeClass("watermark");
         if(this.isPassword) {
@@ -57,7 +58,7 @@ $.widget("ui.watermark", {
         }
       }
     }
-
+    
     return true;
   }
 });

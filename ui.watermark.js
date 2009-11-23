@@ -13,7 +13,7 @@ $.widget("ui.watermark", {
 
     this.elements = $("input:text, input:password, textarea", form);
 
-    var ignoreDefaultValue = this.getData("ignoreDefaultValue");
+    var ignoreDefaultValue = this.options["ignoreDefaultValue"];
 
     this.elements.each(function() {
       this.ignoreDefaultValue = ignoreDefaultValue;
@@ -51,7 +51,7 @@ $.widget("ui.watermark", {
   handlerOff: function() {
     if (this.type == 'text' || this.type == 'textarea') {
       if ((this.value == this.title && this.title && this.title != '')) {
-        this.value = this.defaultValue?this.defaultValue:'';
+        this.value = this.defaultValue || '';
         $(this).removeClass("watermark");
         if(this.isPassword) {
           this.type = "password";
